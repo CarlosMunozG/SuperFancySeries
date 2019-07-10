@@ -15,7 +15,8 @@ GalleriesPage.prototype.generate = async function() {
   await this.connectToAPI();
   this.elements = `
     <header>
-      <h2>Wellcome to the series page</h2>
+      <h2 class="pageTitle" >See All series</h2>
+      <p>Super Fancy Series selection</p>
     </header>
     <section class="cards-container"> 
   `;
@@ -30,21 +31,18 @@ GalleriesPage.prototype.generate = async function() {
     } else {
       var network = "Unknown";
     }
+    console.log(serie);
 
     this.elements += `
-      <article>
+      <article class="all-galleries">
         <a href="#0" id=${serie.id}>
           <div class="poster">
             <img src="${serie.image.original}" alt="${serie.name} featured image"/>
+            <div class="background-all-galleries"></div>
           </div>
-          <div class="info">
-            <h3>Name: ${serie.name}</h3>
-            <p>Year: ${this.year}</p>
-            <p>Seasons: ${serie.seasons}</p>
-            <p>Rating: ${serie.rating.average}</p>
-            <p>Country: ${network}</p>
-            <p>Summary: ${serie.summary}</p>
-            <!--<a href="https://www.imdb.com/title/${serie.externals.imdb}" target="_blank">Play</a>-->
+          <div class="mini-info">
+            <h3 class="mini-title">${serie.name}</h3>
+            <p class="mini-year">${this.year}</p>
           </div>
         </a>
       </article>`;

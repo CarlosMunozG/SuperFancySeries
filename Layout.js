@@ -11,13 +11,7 @@ function Layout(root, style) {
 
 Layout.prototype.generate = function() {
   this.elements = `
-    <header id="site-header">
-      <div class="burguer-menu">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </header>
+    <header id="site-header"></header>
     <main id="site-main"></main>
     <footer id="site-footer"></footer>
   `;

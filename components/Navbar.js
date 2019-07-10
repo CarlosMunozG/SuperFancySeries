@@ -8,13 +8,22 @@ function Navbar(parentElement, links, style) {
 }
 
 Navbar.prototype.generate = function() {
-  //generar dinámicamente los elementos
-  this.elements = `<nav>
+  this.elements = `<section class="header-info">
+                    <div class="logo">
+                      <img src="./images/logo-white.png" alt="logo"/>
+                    </div>
+                    <div class="burguer-menu">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </section>
+                  <nav>
                     <ul>`;
   this.links.forEach( (link) => {
     this.elements += `
       <li>
-        <a href="#0" url=${link.url}>${link.name}</a>
+        <a class="button-${link.name}" href="#0" url=${link.url}>${link.name}</a>
       </li>`
   });
   this.elements += `</ul>
