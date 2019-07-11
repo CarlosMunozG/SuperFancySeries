@@ -5,6 +5,7 @@ function main() {
   var layoutInstance = null;
   var navbarInstance = null;
   var rootElement = document.querySelector("#root");
+  var navState = false;
   var links = [
     { name: "Home", url: "/" },
     { name: "All", url: "/series" }
@@ -43,22 +44,32 @@ function main() {
   }
 
   function addListenersToBurguerMenu() {
-    var burguerMenu = document.querySelector(".burguer-menu");
-    var menuOptions = document.querySelector(".button-All");
-    var nav = document.querySelector("#site-header nav");
-    var mainTitle = document.querySelector('.pageTitle');
-    var mainTitleBackground = document.querySelector('#site-main header');
-    burguerMenu.addEventListener("click", showNavbar);
-    menuOptions.addEventListener("click", showNavbar);
+    var burguerMenu = document.querySelector('.burguer-menu');
+    var menuOptions = document.querySelector('.button-All');
+    var backHome = document.querySelector('.button-Home');
+    var nav = document.querySelector('#site-header nav');
+    var ul = document.querySelector('#site-header nav ul')
+    burguerMenu.addEventListener('click', showNavbar);
+    menuOptions.addEventListener('click', showNavbar);
+    backHome.addEventListener('click', showNavbar);
 
     function showNavbar() {
-      nav.classList.toggle("display-flex");
+      if(navState === false){
+        nav.classList.add('move-in');
+        nav.classList.remove('move-out');
+        ul.classList.add('show');
+        ul.classList.remove('hide');
+        navState = true;
+      } else {
+        ul.classList.add('hide');
+        setTimeout( function(){
+          nav.classList.add('move-out');
+          ul.classList.remove('show');
+          nav.classList.remove('move-in');
+        },300);
+        navState = false;
+      }
     }
-    // function goToAllSeries() {
-    //   nav.classList.toggle("display-flex");
-    //   mainTitle.classList.add('dark');
-    //   mainTitleBackground.classList.add('dark');
-    // }
   }
 }
 window.addEventListener("load", main);
