@@ -1,7 +1,7 @@
 'use strict';
 
 function SeriesService() {
-  this.baseUrl = 'http://api.tvmaze.com';
+  this.baseUrl = 'https://api.tvmaze.com';
 }
 
 SeriesService.prototype.getAllSeries = async function() {

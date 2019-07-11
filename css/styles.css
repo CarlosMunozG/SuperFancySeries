@@ -227,35 +227,13 @@ p {
   justify-content:center;
   align-items: center;
   margin-top:-100vh;
+  transition-duration: 300ms;
+  transition-property: all;
+  transition-timing-function: ease;
 }
 
-#site-header nav.move-in {
-  animation-name: move-in;
-  animation-fill-mode: forwards;
-  animation-duration: 300ms;
-  animation-iteration-count: 1;
-}
-
-@keyframes move-in{
-  0% { margin-top:-100vh; }
-  100% { margin-top:0; }
-}
-
-#site-header nav.move-out {
-  animation-name: move-out;
-  animation-fill-mode: forwards;
-  animation-duration: 300ms;
-  animation-iteration-count: 1;
-  animation-delay: 150ms;
-}
-
-@keyframes move-out{
-  0% { margin-top:0; }
-  100% { margin-top:-100vh; }
-}
-
-#site-header nav.display-flex {
-  display:flex;
+#site-header nav.move-in-out {
+  margin-top:0;
 }
 
 #site-header nav ul{
@@ -266,31 +244,15 @@ p {
   background-color: aquamarine;
   margin-top:-50px;
   opacity:0;
+  transition-delay: 0s;
+  transition-duration: 300ms;
+  transition-property: all;
+  transition-timing-function: ease;
 }
 
-#site-header nav ul.show {
-  animation-name: show;
-  animation-fill-mode: forwards;
-  animation-duration: 150ms;
-  animation-iteration-count: 1;
-  animation-delay: 300ms;
-}
-
-@keyframes show{
-  0% { margin-top:-50px; opacity:0;}
-  100% { margin-top:0; opacity:1;}
-}
-
-#site-header nav ul.hide {
-  animation-name: hide;
-  animation-fill-mode: forwards;
-  animation-duration: 300ms;
-  animation-iteration-count: 1;
-}
-
-@keyframes hide{
-  0% { margin-top:0; opacity:1;}
-  100% { margin-top:-50px; opacity:0;}
+#site-header nav ul.show-hide {
+  margin-top:0px;
+  opacity:1;
 }
 
 #site-header nav li{

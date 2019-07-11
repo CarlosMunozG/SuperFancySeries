@@ -54,19 +54,21 @@ function main() {
     backHome.addEventListener('click', showNavbar);
 
     function showNavbar() {
+      nav.classList.add('move-in-out');
+      ul.classList.toggle('show-hide');
       if(navState === false){
-        nav.classList.add('move-in');
-        nav.classList.remove('move-out');
-        ul.classList.add('show');
-        ul.classList.remove('hide');
-        navState = true;
+        nav.classList.toggle('move-in-out');
+        // nav.classList.remove('move-out');
+        // ul.classList.add('show');
+        // ul.classList.remove('hide');
+        // navState = true;
       } else {
         ul.classList.add('hide');
-        setTimeout( function(){
-          nav.classList.add('move-out');
-          ul.classList.remove('show');
-          nav.classList.remove('move-in');
-        },300);
+        // setTimeout( function(){
+        //   nav.classList.add('move-out');
+        //   ul.classList.remove('show');
+        //   nav.classList.remove('move-in');
+        // },300);
         navState = false;
       }
     }
