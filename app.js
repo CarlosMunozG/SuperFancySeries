@@ -29,7 +29,7 @@ function main() {
   }
 
   function activateRouter() {
-    routerInstance.buildDom(ENTRY_POINT, layoutInstance.main);
+    routerInstance.buildDom(ENTRY_POINT, layoutInstance.main, null, links);
   }
 
   function addListenersToNavbar() {
@@ -51,8 +51,6 @@ function main() {
     var ul = document.querySelector('#site-header nav ul');
     var body = document.querySelector("body");
     var main = document.querySelector("#site-main");
-
-
 
     burguerMenu.addEventListener('click', showNavbar);
     menuOptions.addEventListener('click', showNavbar);

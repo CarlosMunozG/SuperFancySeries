@@ -1,13 +1,13 @@
 'use strict';
 
-function IntroPage(parentElement) {
+function IntroPage(parentElement, links) {
   this.parentElement = parentElement;
   this.elements = null;
   this.series = null;
   this.images = [];
   this.imageUrl = null;
   this.state = false;
-
+  this.links = links;
 }
 
 IntroPage.prototype.generate = async function() {
@@ -15,7 +15,7 @@ IntroPage.prototype.generate = async function() {
   this.loading.generate();
   await this.connectToAPI();
   this.getAllImg();
-
+   
   var self = this;
 
   var slider = null;
@@ -34,14 +34,12 @@ IntroPage.prototype.generate = async function() {
   //   clearInterval(slider);
   // }
   
-  
-
-
   this.elements = `
     <section class="site-intro">
       <header>
-        <div class="blur"></div>
-        <h1>Super Cool Star Wars web site</h1>
+        <!--<div class="blur"></div>-->
+        <h1 class="title">Super Fancy Series</h1>
+        <a class="button-intro" href="${this.links[1].url}">Start</<a>
       </header>
       <div class="img-intro-container">
         <img class="img-intro" src="#" />
@@ -61,15 +59,12 @@ IntroPage.prototype.connectToAPI = async function() {
 }
 
 IntroPage.prototype.getAllImg = function() {
-  // var newString = [];
   this.series.forEach( (serie) => {
-    // newString.push(serie.image.original);
-    this.images.push(serie.image.original);
+    var newURL = serie.image.original.split('');
+    newURL.splice(4,0,"s")
+    var newString = newURL.join('');
+    this.images.push(newString);
   });
-  // var newURL = newString.split('');
-  // console.log(newURL);
-  // newURL.splice(4,0,"s")
-  // this.images = newURL.join('');
 }
 
 

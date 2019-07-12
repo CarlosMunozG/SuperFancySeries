@@ -18,8 +18,6 @@ SeriesService.prototype.getAllSeries = async function() {
   return newSeries;
 }
 
-
-
 SeriesService.prototype.getOneSerie = async function(id) {
   var response = await fetch(`${this.baseUrl}/shows/${id}`);
   var data = await response.json();
