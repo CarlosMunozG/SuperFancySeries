@@ -6,6 +6,7 @@ function GalleriesPage(parentElement) {
   this.series = null;
   this.loading = null;
   this.year = null;
+  this.url = null;
 }
 
 GalleriesPage.prototype.generate = async function() {
@@ -24,6 +25,7 @@ GalleriesPage.prototype.generate = async function() {
     var newURL = serie.image.original.split('');
     newURL.splice(4,0,"s")
     var newString = newURL.join('')
+    this.url = newString;
     var time = serie.premiered.split('-');
     time.splice(1,2).toString();
     this.year = parseInt(time);
@@ -68,8 +70,14 @@ GalleriesPage.prototype.addListeners = function() {
     });
   })
   function goToSerie(event, self) {
+    //console.log(self.url);
+    // var newURL = serie.image.original.split('');
+    // newURL.splice(4,0,"s")
+    // var newString = newURL.join('');
+    // this.images.push(newString);
+
     var id = Number(event.currentTarget.attributes.id.value);
-    var url = null;
+    var url = self.url;
     routerInstance.buildDom(url, self.parentElement, id);
     body.style.background = '#fff';
     main.style.background = '#fff';
