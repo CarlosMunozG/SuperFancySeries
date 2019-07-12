@@ -24,7 +24,10 @@ SeriesService.prototype.getAllSeries = async function() {
 SeriesService.prototype.getOneSerie = async function(id) {
   var response = await fetch(`${this.baseUrl}/shows/${id}`);
   var data = await response.json();
-  var newResponse = await fetch(data._links.previousepisode.href);
+  var newURL = data._links.previousepisode.href.split('');
+  newURL.splice(4,0,"s")
+  var newString = newURL.join('');
+  var newResponse = await fetch(newString);
   var newData = await newResponse.json();
   data.seasons = newData.season;
   return data;

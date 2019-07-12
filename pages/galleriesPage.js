@@ -70,14 +70,8 @@ GalleriesPage.prototype.addListeners = function() {
     });
   })
   function goToSerie(event, self) {
-    //console.log(self.url);
-    // var newURL = serie.image.original.split('');
-    // newURL.splice(4,0,"s")
-    // var newString = newURL.join('');
-    // this.images.push(newString);
-
     var id = Number(event.currentTarget.attributes.id.value);
-    var url = self.url;
+    var url = null;
     routerInstance.buildDom(url, self.parentElement, id);
     body.style.background = '#fff';
     main.style.background = '#fff';

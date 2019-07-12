@@ -32,6 +32,5 @@ Navbar.prototype.generate = function() {
 }
 
 Navbar.prototype.render = function() {
-  //add elements to DOM
   this.parentElement.innerHTML = this.elements;
 }
