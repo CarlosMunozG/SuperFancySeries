@@ -6,31 +6,34 @@ function IntroPage(parentElement) {
   this.series = null;
   this.images = [];
   this.imageUrl = null;
+  this.state = false;
+
 }
 
 IntroPage.prototype.generate = async function() {
   this.loading = new Loading(this.parentElement);
   this.loading.generate();
   await this.connectToAPI();
-  //console.log(this.series);
-  // this.getAllImg();
+  this.getAllImg();
 
   var self = this;
-  this.series.forEach( (serie) => {
-    this.images.push(serie.image.original);
-    //var randomNumber = 
-  });
 
-  function randomImg(self) {
-    setInterval(function(){
-      //backgroundImg(self);
-      var randomImg = Math.floor(Math.random() * self.images.length-1 );
-      var image = document.querySelector('.img-intro-1');
-      image.attributes.src.value = self.images[randomImg];
-      var img = document.querySelector('.img-intro-1');
-      img.classList.add('fade-effect');
-    },6000);
-  }
+  var slider = null;
+  // if(this.state === false){
+    function randomImg(self) {
+      slider = setInterval(function( ){
+        var randomImg = Math.floor(Math.random() * self.images.length-1 );
+        var image = document.querySelector('.img-intro');
+        image.attributes.src.value = self.images[randomImg];
+        //var img = document.querySelector('.img-intro');
+        //img.classList.add('fade-effect');
+      },6000);
+    } 
+  //   }
+  // } else if( this.state === true){
+  //   clearInterval(slider);
+  // }
+  
   
 
 
@@ -39,11 +42,9 @@ IntroPage.prototype.generate = async function() {
       <header>
         <div class="blur"></div>
         <h1>Super Cool Star Wars web site</h1>
-        <h2>Here you can find the info you are looking for</h2>
       </header>
       <div class="img-intro-container">
-        <img class="img-intro-1" src="#" />
-        <!--<img class="img-intro-2" src="#" />-->
+        <img class="img-intro" src="#" />
       </div>
     </section>
   `;
@@ -59,16 +60,18 @@ IntroPage.prototype.connectToAPI = async function() {
   this.series = await seriesServiceInstance.getAllSeries();
 }
 
+IntroPage.prototype.getAllImg = function() {
+  // var newString = [];
+  this.series.forEach( (serie) => {
+    // newString.push(serie.image.original);
+    this.images.push(serie.image.original);
+  });
+  // var newURL = newString.split('');
+  // console.log(newURL);
+  // newURL.splice(4,0,"s")
+  // this.images = newURL.join('');
+}
 
-
-
-
-// IntroPage.prototype.getAllImg = () => {
-//   this.series.forEach( (serie) => {
-//     this.images.push(serie.image.original);
-//   });
-//   console.log(this.images);
-// }
 
 
 

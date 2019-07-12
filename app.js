@@ -8,7 +8,7 @@ function main() {
   var navState = false;
   var links = [
     { name: "Home", url: "/" },
-    { name: "All", url: "/series" }
+    { name: "Series", url: "/series" }
     //si da tiempo haremos un menu que obtenga los genres de las series para filtrar por generos
   ];
 
@@ -45,30 +45,33 @@ function main() {
 
   function addListenersToBurguerMenu() {
     var burguerMenu = document.querySelector('.burguer-menu');
-    var menuOptions = document.querySelector('.button-All');
+    var menuOptions = document.querySelector('.button-Series');
     var backHome = document.querySelector('.button-Home');
     var nav = document.querySelector('#site-header nav');
-    var ul = document.querySelector('#site-header nav ul')
+    var ul = document.querySelector('#site-header nav ul');
+    var body = document.querySelector("body");
+    var main = document.querySelector("#site-main");
+
+
+
     burguerMenu.addEventListener('click', showNavbar);
     menuOptions.addEventListener('click', showNavbar);
     backHome.addEventListener('click', showNavbar);
 
     function showNavbar() {
-      nav.classList.add('move-in-out');
-      ul.classList.toggle('show-hide');
+      body.style.background = '#111';
+      main.style.background = '#111';
       if(navState === false){
-        nav.classList.toggle('move-in-out');
-        // nav.classList.remove('move-out');
-        // ul.classList.add('show');
-        // ul.classList.remove('hide');
-        // navState = true;
+        nav.classList.add('move-in-out');
+        setTimeout( function(){
+          ul.classList.add('show-hide');
+        },300);
+        navState = true;
       } else {
-        ul.classList.add('hide');
-        // setTimeout( function(){
-        //   nav.classList.add('move-out');
-        //   ul.classList.remove('show');
-        //   nav.classList.remove('move-in');
-        // },300);
+        ul.classList.remove('show-hide');
+        setTimeout( function(){
+          nav.classList.remove('move-in-out');
+        },300);
         navState = false;
       }
     }

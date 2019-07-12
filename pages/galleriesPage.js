@@ -8,11 +8,10 @@ function GalleriesPage(parentElement) {
   this.year = null;
 }
 
-
 GalleriesPage.prototype.generate = async function() {
   this.loading = new Loading(this.parentElement);
   this.loading.generate();
-  await this.connectToAPI();
+  await this.connectToAPI();  
   
   this.elements = `
     <header>
@@ -22,7 +21,9 @@ GalleriesPage.prototype.generate = async function() {
     <section class="cards-container"> 
   `;
   this.series.forEach( (serie) => {
-
+    var newURL = serie.image.original.split('');
+    newURL.splice(4,0,"s")
+    var newString = newURL.join('')
     var time = serie.premiered.split('-');
     time.splice(1,2).toString();
     this.year = parseInt(time);
@@ -31,7 +32,7 @@ GalleriesPage.prototype.generate = async function() {
       <article class="all-galleries">
         <a href="#0" id=${serie.id}>
           <div class="poster">
-            <img src="${serie.image.original}" alt="${serie.name} featured image"/>
+            <img src="${newString}" alt="${serie.name} featured image"/>
             <div class="background-all-galleries"></div>
           </div>
           <div class="mini-info">
@@ -39,13 +40,14 @@ GalleriesPage.prototype.generate = async function() {
             <p class="mini-year">${this.year}</p>
           </div>
         </a>
+        <!--<div class="mini-intro"></div>-->
       </article>`;
   });
   this.elements += `</section><section class="intro-effect"></section>`;
   this.render()
   this.addListeners();
+  this.unpluggedIntroEffect();
 }
-
 
 GalleriesPage.prototype.render = function() {
   this.parentElement.innerHTML = this.elements;
@@ -57,6 +59,8 @@ GalleriesPage.prototype.connectToAPI = async function() {
 
 GalleriesPage.prototype.addListeners = function() {
   var anchors = document.querySelectorAll('article a');
+  var body = document.querySelector('body');
+  var main = document.querySelector('#site-main');
   var self = this;
   anchors.forEach( function(anchor){
     anchor.addEventListener('click', (event) => {
@@ -67,7 +71,20 @@ GalleriesPage.prototype.addListeners = function() {
     var id = Number(event.currentTarget.attributes.id.value);
     var url = null;
     routerInstance.buildDom(url, self.parentElement, id);
+    body.style.background = '#fff';
+    main.style.background = '#fff';
   }
+}
+
+GalleriesPage.prototype.unpluggedIntroEffect = function() {
+  var introEffect = document.querySelector('.intro-effect');
+  setTimeout( function(){
+    introEffect.classList.add('opacity');
+  },1000);
+
+  setTimeout( function(){
+    introEffect.classList.add('none');
+  }, 1500);
 }
 
 

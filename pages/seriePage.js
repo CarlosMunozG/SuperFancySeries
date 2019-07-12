@@ -14,7 +14,7 @@ function SeriePage(parentElement, id) {
 SeriePage.prototype.generate = async function() {
   this.loading = new Loading(this.parentElement);
   this.loading.generate();
-
+  
   await this.connectToAPI();
   this.getYear(); 
   this.getCountry();
@@ -26,38 +26,53 @@ SeriePage.prototype.generate = async function() {
   </header>-->
     <section class="single-card"> 
       <article>
-        <a href="#0" url=${this.serie._links.self}>
-          <div class="poster">
-            <div class="poster-container">
-              <img src="${this.serie.image.original}" alt="${this.serie.name} featured image"/>
-            </div>
-            <div class="lateral-background"></div>
+        <div class="poster">
+          <div class="poster-container">
+            <img src="${this.serie.image.original}" alt="${this.serie.name} featured image"/>
           </div>
-          <section class="get-details">
-            <div class="info-featured">
-              <h3>${this.serie.name}</h3>
-              <p class="rating">${this.serie.rating.average} / 10</p>
-              <p class="genre">${this.genres}</p>
-            </div>
-            <div class="info-secondary">
+          <div class="background"></div>
+        </div>
+        <div class="borders"></div>
+        <section class="big-details">
+          <div class="info-featured">
+            <h3>${this.serie.name}</h3>
+            <p class="rating">${this.serie.rating.average} / 10</p>
+            <p class="genre">${this.genres}</p>
+          </div>
+        </section>
+        <section class="get-details">
+          <div class="info-secondary">
+            <div>
               <p class="details">Year</p>
               <p class="info-details">${this.year}</p>
-              <p class="details">Seasons</p>
-              <p class="info-details">${this.serie.seasons}</p>
+            </div>
+            <div>
               <p class="details">Country</p>
               <p class="info-details">${this.country}</p>
-              <p class="details">Summary</p>
-              <p class="last-detail">${this.serie.summary}</p>
             </div>
-            <div class="play">
-              <!--<a href="https://www.imdb.com/title/${this.serie.externals.imdb}" target="_blank">Play</a>-->
+            <div>
+              <p class="details">Seasons</p>
+              <p class="info-details">${this.serie.seasons}</p>
             </div>
-          </section>
-        </a>
+          </div>
+          <hr>
+          <div class="summary-info">
+            <p class="last-detail">${this.serie.summary}</p>
+          </div>
+          <div class="play">
+            <a href="https://www.imdb.com/title/${this.serie.externals.imdb}" target="_blank">
+              <img class="play-icon" src="./images/play-logo.svg">
+            </a>
+          </div>
+        </section>
       </article>
+      <div class="intro-serie"></div>
     </section>
     `;
   this.render();
+  this.rate();
+  this.unpluggedIntroEffect();
+
 }
 
 SeriePage.prototype.render = function() {
@@ -84,8 +99,33 @@ SeriePage.prototype.getCountry = function() {
 
 SeriePage.prototype.getGenres = function() {
   if(this.serie.genres){
-    this.genres = this.serie.genres.toString().split(',').join('');
+    this.genres = this.serie.genres.toString().split(',').join(' · ');
   } else {
     this.genres = "Unknown";
   }  
 }
+
+SeriePage.prototype.unpluggedIntroEffect = function() {
+  var introEffect = document.querySelector('.intro-serie');
+  setTimeout( function(){
+    introEffect.classList.add('opacity');
+  },1000);
+  setTimeout( function(){
+    introEffect.classList.add('none');
+  }, 1500);
+}
+
+SeriePage.prototype.rate = function() {
+  var rate = document.querySelector('.rating');
+  if(this.serie.rating.average < 7){
+    rate.style.background = 'rgba(246,4,4,0.5)';
+  } else if(this.serie.rating.average >= 7 && this.serie.rating.average < 8.5 ){
+    rate.style.background = 'rgba(246,132,3,0.5)';
+  } else if(this.serie.rating.average >= 8.5){
+    rate.style.background = 'rgba(8,242,86,0.5)';
+  }
+}
+  
+
+
+
