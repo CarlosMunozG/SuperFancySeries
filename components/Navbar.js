@@ -19,7 +19,7 @@ Navbar.prototype.generate = function() {
                     </div>
                   </section>
                   <nav>
-                    <ul class="nav-links">`;
+                    <ul class="nav-links">`; 
   this.links.forEach( (link) => {
     this.elements += `
       <li>

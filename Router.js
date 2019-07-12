@@ -1,10 +1,14 @@
 'use strict';
 
 function Router() {
-  this.page = null;
+  this.page = {};
 }
 
 Router.prototype.buildDom = function(url, parentElement, id, links) {
+  if(this.page.slider) {
+    clearInterval(this.page.slider)
+  }
+
   if(url === '/'){
     this.generateIntroPage(parentElement, links, url);
   } else if( url === '/series'){
