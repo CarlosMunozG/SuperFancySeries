@@ -6,7 +6,7 @@ function Router() {
 
 Router.prototype.buildDom = function(url, parentElement, id, links) {
   if(url === '/'){
-    this.generateIntroPage(parentElement, links);
+    this.generateIntroPage(parentElement, links, url);
   } else if( url === '/series'){
     this.generateGalleriesPage(parentElement);
   } else if(id){
@@ -14,8 +14,8 @@ Router.prototype.buildDom = function(url, parentElement, id, links) {
   }
 } 
 
-Router.prototype.generateIntroPage = function(parentElement, links) {
-  this.page = new IntroPage(parentElement, links);
+Router.prototype.generateIntroPage = function(parentElement, links, url) {
+  this.page = new IntroPage(parentElement, links, url);
   this.page.generate();
 }
 

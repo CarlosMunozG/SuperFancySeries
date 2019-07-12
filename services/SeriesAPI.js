@@ -10,7 +10,10 @@ SeriesService.prototype.getAllSeries = async function() {
 
   var filteredData = data.splice(0, 100);
   var newSeries = await Promise.all(filteredData.map( async (element) => {
-    var newResponse = await fetch(element._links.previousepisode.href);
+    var newURL = element._links.previousepisode.href.split('');
+    newURL.splice(4,0,"s")
+    var newString = newURL.join('');
+    var newResponse = await fetch(newString);
     var newData = await newResponse.json();
     element.seasons = newData.season;
     return element;
