@@ -1,21 +1,22 @@
 'use strict';
 
-function Loading(parentElement) {
-  this.parentElement = parentElement;
-  this.elements = null;
-  this.container = null;
-}
+class Loading{
+  constructor(parentElement){
+    this.parentElement = parentElement;
+    let elements = this.elements
+    this.elements = null; 
+  }
 
-Loading.prototype.generate = function() {
-  this.elements = `<section id="container">
-                    <div>
-                      <img src="./images/borders-logo.svg">
-                    </div>
-                  </section>`;
-  this.render();
-}
+  generate() {
+    this.elements = `<section id="container">
+                      <div>
+                        <img src="./images/borders-logo.svg">
+                      </div>
+                    </section>`;
+    this.render();
+  }
+  render() {
+    this.parentElement.innerHTML = this.elements;
+  }
 
-Loading.prototype.render = function() {
-  this.parentElement.innerHTML = this.elements;
 }
-

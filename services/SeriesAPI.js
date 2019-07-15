@@ -1,36 +1,37 @@
 'use strict';
 
-function SeriesService() {
-  this.baseUrl = 'https://api.tvmaze.com';
-}
+class SeriesService{
+  constructor(){
+    this.baseUrl = 'https://api.tvmaze.com';
+  }
 
-SeriesService.prototype.getAllSeries = async function() {
-  var response = await fetch(`${this.baseUrl}/shows`);
-  var data = await response.json();
+  async getAllSeries() {
+    const response = await fetch(`${this.baseUrl}/shows`);
+    const data = await response.json();
 
-  var filteredData = data.splice(0, 100);
-  var newSeries = await Promise.all(filteredData.map( async (element) => {
-    var newURL = element._links.previousepisode.href.split('');
+    const filteredData = data.splice(0, 100);
+    const newSeries = await Promise.all(filteredData.map( async element => {
+      const newURL = element._links.previousepisode.href.split('');
+      newURL.splice(4,0,"s")
+      const newString = newURL.join('');
+      const newResponse = await fetch(newString);
+      const newData = await newResponse.json();
+      element.seasons = newData.season;
+      return element;
+    }));
+    return newSeries;
+  }
+  async getOneSerie(id){
+    const response = await fetch(`${this.baseUrl}/shows/${id}`);
+    const data = await response.json();
+    const newURL = data._links.previousepisode.href.split('');
     newURL.splice(4,0,"s")
-    var newString = newURL.join('');
-    var newResponse = await fetch(newString);
-    var newData = await newResponse.json();
-    element.seasons = newData.season;
-    return element;
-  }));
-  return newSeries;
-}
+    const newString = newURL.join('');
+    const newResponse = await fetch(newString);
+    const newData = await newResponse.json();
+    data.seasons = newData.season;
+    return data;
+  }
+  }
 
-SeriesService.prototype.getOneSerie = async function(id) {
-  var response = await fetch(`${this.baseUrl}/shows/${id}`);
-  var data = await response.json();
-  var newURL = data._links.previousepisode.href.split('');
-  newURL.splice(4,0,"s")
-  var newString = newURL.join('');
-  var newResponse = await fetch(newString);
-  var newData = await newResponse.json();
-  data.seasons = newData.season;
-  return data;
-}
-
-var seriesServiceInstance = new SeriesService();
+const seriesServiceInstance = new SeriesService();

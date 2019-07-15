@@ -1,36 +1,37 @@
 'use strict';
 
-function Router() {
-  this.page = {};
-}
-
-Router.prototype.buildDom = function(url, parentElement, id, links) {
-  if(this.page.slider) {
-    clearInterval(this.page.slider)
+class Router{
+  constructor(){
+    this.page = {};
   }
 
-  if(url === '/'){
-    this.generateIntroPage(parentElement, links, url);
-  } else if( url === '/series'){
-    this.generateGalleriesPage(parentElement);
-  } else if(id){
-    this.generateSeriePage(parentElement, id);
+  buildDom(url, parentElement, id, links) {
+    if(this.page.slider) {
+      clearInterval(this.page.slider)
+    }
+    if(url === '/'){
+      this.generateIntroPage(parentElement, links, url);
+    } else if( url === '/series'){
+      this.generateGalleriesPage(parentElement);
+    } else if(id){
+      this.generateSeriePage(parentElement, id);
+    }
+  } 
+  
+  generateIntroPage(parentElement, links, url) {
+    this.page = new IntroPage(parentElement, links, url);
+    this.page.generate();
   }
-} 
-
-Router.prototype.generateIntroPage = function(parentElement, links, url) {
-  this.page = new IntroPage(parentElement, links, url);
-  this.page.generate();
+  
+  generateGalleriesPage(parentElement) {
+    this.page = new GalleriesPage(parentElement);
+    this.page.generate();
+  }
+  
+  generateSeriePage(parentElement, id) {
+    this.page = new SeriePage(parentElement, id);
+    this.page.generate();
+  }
 }
+const routerInstance = new Router();  
 
-Router.prototype.generateGalleriesPage = function(parentElement) {
-  this.page = new GalleriesPage(parentElement);
-  this.page.generate();
-}
-
-Router.prototype.generateSeriePage = function(parentElement, id) {
-  this.page = new SeriePage(parentElement, id);
-  this.page.generate();
-}
-
-var routerInstance = new Router();
